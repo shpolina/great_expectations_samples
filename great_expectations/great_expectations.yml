@@ -1,0 +1,101 @@
+config_version: 3.0
+
+datasources:
+  redshifts_datasource:
+    class_name: Datasource
+    execution_engine:
+      class_name: SqlAlchemyExecutionEngine
+      connection_string: ${connection_str}
+      module_name: great_expectations.execution_engine
+      create_temp_table: False
+    module_name: great_expectations.datasource
+    data_connectors:
+      main_dataconnector:
+        class_name: RuntimeDataConnector
+        module_name: great_expectations.datasource.data_connector
+        batch_identifiers:
+          - batch_id
+
+config_variables_file_path: uncommitted/config_variables.yml
+
+plugins_directory: plugins/
+
+stores:
+  expectations_store:
+    class_name: ExpectationsStore
+    store_backend:
+      class_name: TupleFilesystemStoreBackend
+      base_directory: expectations/
+
+  expectations_s3_store:
+    class_name: ExpectationsStore
+    store_backend:
+      class_name: TupleS3StoreBackend
+      bucket: ${deployment_bucket}
+      prefix: datavalidation/expectations
+      boto3_options:
+        aws_access_key_id: ${access_key_id}
+        aws_secret_access_key: ${secret_access_key}
+        aws_session_token: ${session_token}
+        region_name: ${aws_region_name} 
+
+  validations_store:
+    class_name: ValidationsStore
+    store_backend:
+      class_name: TupleFilesystemStoreBackend
+      base_directory: uncommitted/validations/
+
+  validations_s3_store:
+    class_name: ValidationsStore
+    store_backend:
+      class_name: TupleS3StoreBackend
+      bucket: ${deployment_bucket}
+      prefix: datavalidation/validations
+      boto3_options:
+        aws_access_key_id: ${access_key_id}
+        aws_secret_access_key: ${secret_access_key}
+        aws_session_token: ${session_token}
+        region_name: ${aws_region_name}   
+
+  evaluation_parameter_store:
+      class_name: EvaluationParameterStore
+
+  checkpoint_store:
+    class_name: CheckpointStore
+    store_backend:
+      class_name: TupleFilesystemStoreBackend
+      suppress_store_backend_id: true
+      base_directory: checkpoints/
+
+expectations_store_name: expectations_store
+validations_store_name: ${validations_store_name}
+evaluation_parameter_store_name: evaluation_parameter_store
+checkpoint_store_name: checkpoint_store
+
+data_docs_sites:
+  local_site:
+    class_name: SiteBuilder
+    show_how_to_buttons: false
+    store_backend:
+      class_name: TupleFilesystemStoreBackend
+      base_directory: uncommitted/data_docs/local_site/
+    site_index_builder:
+      class_name: DefaultSiteIndexBuilder
+  s3_site:
+    class_name: SiteBuilder
+    show_how_to_buttons: false
+    store_backend:
+      class_name: TupleS3StoreBackend
+      bucket: ${deployment_bucket}
+      boto3_options:
+        aws_access_key_id: ${access_key_id}
+        aws_secret_access_key: ${secret_access_key}
+        aws_session_token: ${session_token}
+        region_name: ${aws_region_name}   
+    site_index_builder:
+      class_name: DefaultSiteIndexBuilder
+
+anonymous_usage_statistics:
+  enabled: true
+  data_context_id: 27ec39b9-f3f9-4c48-ba24-bab14d98f39e
+notebooks:

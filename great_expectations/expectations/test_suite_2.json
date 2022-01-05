@@ -1,0 +1,223 @@
+{
+  "data_asset_type": null,
+  "expectation_suite_name": "person.core",
+  "expectations": [
+    {
+      "expectation_type": "expect_table_row_count_to_be_between",
+      "kwargs": {
+        "min_value": {
+          "$PARAMETER": "person_row_count"
+        },
+        "mах_value": 1000000000000
+      },
+      "meta": {
+        "parameters_config": [
+          {
+            "name": "person_row_count",
+            "source": "db",
+            "value_reference": "observed_value"
+          }
+        ]
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "personid"
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_unique",
+      "kwargs": {
+        "column": "personid"
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_in_set",
+      "kwargs": {
+        "column": "gender",
+        "value_set": [
+          "Female",
+          "Male",
+          "Unknown"
+        ]
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "gender"
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_kl_divergence_to_be_less_than",
+      "kwargs": {
+        "column": "gender",
+        "partition_object": {
+          "values": [
+            "Female",
+            "Male",
+            "Unknown"
+          ],
+          "weights": [
+            0.5,
+            0.4,
+            0.1
+          ]
+        },
+        "threshold": 0.2
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_in_set",
+      "kwargs": {
+        "column": "gendercode",
+        "value_set": [
+          "F",
+          "M",
+          "U"
+        ]
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "gendercode"
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "gendertermid"
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": {
+        "column": "birthdate",
+        "max_value": {
+          "$PARAMETER": "date_today"
+        },
+        "min_value": "1900-01-01 00:00:00",
+        "parse_strings_as_datetimes": true
+      },
+      "meta": {
+        "parameters_config": [
+          {
+            "name": "date_today",
+            "source": "dynamic",
+          }
+        ]
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "birthdate"
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "identifier"
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_unique",
+      "kwargs": {
+        "column": "identifier"
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "givenname"
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "familyname"
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_in_set",
+      "kwargs": {
+        "column": "deceased",
+        "value_set": [
+          false,
+          true
+        ]
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "deceased"
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": {
+        "column": "deceaseddate",
+        "max_value": {
+          "$PARAMETER": "date_today"
+        },
+        "min_value": "1990-01-01 00:00:00",
+        "parse_strings_as_datetimes": true
+      },
+      "meta": {
+        "parameters_config": [
+          {
+            "name": "date_today",
+            "source": "dynamic",
+            "value_reference": "{current_dt}"
+          }
+        ]
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "addressline1"
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "city"
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "postalcode"
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "state"
+      },
+      "meta": {}
+    }
+  ],
+  "meta": {}
+}

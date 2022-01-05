@@ -1,0 +1,21 @@
+{
+    "data_asset_type": null,
+    "expectation_suite_name": "test_table_1",
+    "expectations": [
+        {
+            "expectation_type": "expect_table_row_count_to_be_between",
+            "kwargs": {
+                "min_value": 10,
+                "max_value": 1000000000000
+            }
+        },
+        {
+            "expectation_type": "expect_column_values_to_not_be_null",
+            "kwargs": {
+                "column": "personid"
+            },
+            "meta": {}
+        }
+    ],
+    "meta": {}
+}
